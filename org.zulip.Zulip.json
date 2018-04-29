@@ -35,8 +35,15 @@
       "sources": [
         {
           "type": "file",
+          "only-arches": ["x86_64"],
           "url": "https://github.com/zulip/zulip-electron/releases/download/v2.0.0/Zulip-2.0.0-amd64.deb",
           "sha256": "81334f9ab8c9714245c8412db0da2608532d4a352e09b2d57ae2178c5c814c1e"
+        },
+        {
+          "type": "file",
+          "only-arches": ["i386"],
+          "url": "https://github.com/zulip/zulip-electron/releases/download/v2.0.0/Zulip-2.0.0-i386.deb",
+          "sha256": "9bab88318a838059c6da289272cf08d89b05e3a8e1756475295797d3fb2a07f1"
         },
         {
           "type": "file",
