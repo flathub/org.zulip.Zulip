@@ -44,8 +44,8 @@
         },
         {
           "type": "archive",
-          "url": "https://github.com/zulip/zulip-electron/releases/download/v2.0.0/Zulip-2.0.0-linux.zip",
-          "sha256": "184988af7e2d0063b3ce030e8c7a7dbd094c60fa2cc47ab05e94f0041ab15511"
+          "url": "https://github.com/zulip/zulip-electron/archive/v2.0.0.tar.gz",
+          "sha256": "d30e4b958a9417a250388b4c8ab004682269d30cca33dcc725770864a56568ce"
         }
       ]
     }
