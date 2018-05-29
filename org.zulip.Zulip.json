@@ -36,23 +36,23 @@
         {
           "type": "file",
           "only-arches": ["x86_64"],
-          "url": "https://github.com/zulip/zulip-electron/releases/download/v2.0.0/Zulip-2.0.0-amd64.deb",
-          "sha256": "81334f9ab8c9714245c8412db0da2608532d4a352e09b2d57ae2178c5c814c1e"
+          "url": "https://github.com/zulip/zulip-electron/releases/download/v2.3.1/Zulip-2.3.1-amd64.deb",
+          "sha256": "4a0a96ba583114397e9a02d431aba87356b20fec6c1d17f73d8b5d1d7146cd63"
         },
         {
           "type": "file",
           "only-arches": ["i386"],
-          "url": "https://github.com/zulip/zulip-electron/releases/download/v2.0.0/Zulip-2.0.0-i386.deb",
-          "sha256": "9bab88318a838059c6da289272cf08d89b05e3a8e1756475295797d3fb2a07f1"
+          "url": "https://github.com/zulip/zulip-electron/releases/download/v2.3.1/Zulip-2.3.1-i386.deb",
+          "sha256": "645ce2d3ca3916d242ae878f0645b8b6d1d602aba1706fe45ab80fadfd9088e6"
         },
         {
           "type": "file",
           "path": "org.zulip.Zulip.appdata.xml"
         },
         {
-          "type": "archive",
-          "url": "https://github.com/zulip/zulip-electron/archive/v2.0.0.tar.gz",
-          "sha256": "d30e4b958a9417a250388b4c8ab004682269d30cca33dcc725770864a56568ce"
+          "type": "git",
+          "url": "https://github.com/zulip/zulip-electron",
+          "sha256": "5b34bc696e45a463ee285a1d3e819a981ee431af"
         }
       ]
     }
