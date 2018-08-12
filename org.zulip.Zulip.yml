@@ -1,0 +1,44 @@
+app-id: org.zulip.Zulip
+base: org.electronjs.Electron2.BaseApp
+base-version: stable
+runtime: org.freedesktop.Platform
+runtime-version: 1.6
+sdk: org.freedesktop.Sdk
+command: zulip
+rename-icon: zulip
+rename-desktop-file: zulip.desktop
+separate-locales: false
+finish-args:
+  - --share=ipc
+  - --socket=x11
+  - --socket=pulseaudio
+  - --share=network
+  - --filesystem=home
+modules:
+  - name: zulip
+    buildsystem: simple
+    build-commands:
+      - ar -x Zulip-*.deb
+      - rm -f Zulip-*.deb
+      - tar -xf data.tar.xz
+      - cp -r usr/* /app
+      - mkdir -p /app/bin
+      - cp -r opt/Zulip/* /app/bin
+      - desktop-file-edit --set-key=Exec --set-value='zulip %U' /app/share/applications/zulip.desktop
+      - install -Dm644 org.zulip.Zulip.appdata.xml /app/share/appdata/org.zulip.Zulip.appdata.xml
+    sources:
+      - type: file
+        only-arches:
+          - x86_64
+        url: https://github.com/zulip/zulip-electron/releases/download/v2.3.3/Zulip-2.3.3-amd64.deb
+        sha256: ed462c6789e92a716f9bca8c5c65323c7e8561b7b828c0996ae96306473e0cdd
+      - type: file
+        only-arches:
+          - i386
+        url: https://github.com/zulip/zulip-electron/releases/download/v2.3.3/Zulip-2.3.3-i386.deb
+        sha256: 739b9c32bad8b8f7970bd9b03181453495957041e0b342863e9a29b2e0774328
+      - type: git
+        url: https://github.com/zulip/zulip-electron
+        commit: c52bfd6a451c1696542fde0f78492256ce9e0a00
+      - type: file
+        path: org.zulip.Zulip.appdata.xml
