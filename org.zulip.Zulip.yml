@@ -30,15 +30,15 @@ modules:
       - type: file
         only-arches:
           - x86_64
-        url: https://github.com/zulip/zulip-electron/releases/download/v2.3.5/Zulip-2.3.5-amd64.deb
-        sha256: c2fb25d1c9c4b49c053c812f6f9a30f877fd889656ac7590671988ca6c70081c
+        url: https://github.com/zulip/zulip-electron/releases/download/v2.3.6/Zulip-2.3.6-amd64.deb
+        sha256: 3024bd1364f5c4a94441130e3e9a620e50f84d16029d13936e67e5f07213af92
       - type: file
         only-arches:
           - i386
-        url: https://github.com/zulip/zulip-electron/releases/download/v2.3.5/Zulip-2.3.5-i386.deb
-        sha256: f2ca3b0f9d7eb91b47145e22f38eb79f77f56df7457e52c4d0fa8fe343731b34
+        url: https://github.com/zulip/zulip-electron/releases/download/v2.3.6/Zulip-2.3.6-i386.deb
+        sha256: e854c7b763170b18fbc4f0da287abc2e0e9b9539078f169a8ba8ee075c68de31
       - type: git
         url: https://github.com/zulip/zulip-electron
-        commit: ea103380b693a15fb676f5cf5a49b5c4232b4053
+        commit: 3eec4c2209ab4e7303cd9e3e7d8408a8524cffd5
       - type: file
         path: org.zulip.Zulip.appdata.xml
