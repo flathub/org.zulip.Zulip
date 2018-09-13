@@ -1,4 +1,4 @@
-app-id: org.zulip.Zulip
+app-id: org.zulip.zulip-electron
 base: org.electronjs.Electron2.BaseApp
 base-version: 18.08
 runtime: org.freedesktop.Platform
