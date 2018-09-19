@@ -3,8 +3,8 @@
   <id>org.zulip.Zulip.desktop</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>Apache-2.0</project_license>
-  <name>Zulip Desktop Client</name>
-  <summary>Desktop client for Zulip.</summary>
+  <name>Zulip</name>
+  <summary>Zulip Desktop Client for Linux</summary>
   <description>
     <p>
       Zulip combines the immediacy of Slack with an email threading model.
