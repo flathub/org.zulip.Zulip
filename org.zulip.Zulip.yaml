@@ -36,9 +36,4 @@ modules:
         url: https://github.com/zulip/zulip-desktop/releases/download/v3.0.0/Zulip-3.0.0-amd64.deb
         sha256: c1adbe8fd92be7f9ef56bcf6e5bd9664b43b46e67e0bc33fdde662d6f164cfb5
       - type: file
-        only-arches:
-          - i386
-        url: https://github.com/zulip/zulip-electron/releases/download/v2.3.82/Zulip-2.3.82-i386.deb
-        sha256: 01a541a8ca7ad07d6d803671fa5128b0d97f283c9537d19bc1b6ebc7d3737fe8
-      - type: file
         path: org.zulip.Zulip.appdata.xml
