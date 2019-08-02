@@ -27,18 +27,18 @@ modules:
       - desktop-file-edit --set-key=Exec --set-value='zulip %U' /app/share/applications/zulip.desktop
       - install -Dm644 org.zulip.Zulip.appdata.xml /app/share/appdata/org.zulip.Zulip.appdata.xml
     sources:
+      - type: archive
+        url: https://github.com/zulip/zulip-desktop/archive/v3.0.0.tar.gz
+        sha256: 82996a2ffb150ec35757803909f62ceb2a0a29cc9606fd7561127e1aa8741007
       - type: file
         only-arches:
           - x86_64
-        url: https://github.com/zulip/zulip-electron/releases/download/v2.3.82/Zulip-2.3.82-amd64.deb
-        sha256: b5c2366c1385929cc5aa613e1575e4f19c87f80e2f0a6e756ae4674505694948
+        url: https://github.com/zulip/zulip-desktop/releases/download/v3.0.0/Zulip-3.0.0-amd64.deb
+        sha256: c1adbe8fd92be7f9ef56bcf6e5bd9664b43b46e67e0bc33fdde662d6f164cfb5
       - type: file
         only-arches:
           - i386
         url: https://github.com/zulip/zulip-electron/releases/download/v2.3.82/Zulip-2.3.82-i386.deb
         sha256: 01a541a8ca7ad07d6d803671fa5128b0d97f283c9537d19bc1b6ebc7d3737fe8
-      - type: archive
-        url: https://github.com/zulip/zulip-electron/archive/v2.3.82.tar.gz
-        sha256: b9c334f1c1a27b6a6c5ffd3704bf3b6b345fd05f0a44299cdbbf8bfd4a8b08d3
       - type: file
         path: org.zulip.Zulip.appdata.xml
