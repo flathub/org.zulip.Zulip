@@ -31,13 +31,13 @@ modules:
       - install -Dm644 org.zulip.Zulip.appdata.xml /app/share/appdata/org.zulip.Zulip.appdata.xml
     sources:
       - type: archive
-        url: https://github.com/zulip/zulip-desktop/archive/v3.0.0.tar.gz
-        sha256: 82996a2ffb150ec35757803909f62ceb2a0a29cc9606fd7561127e1aa8741007
+        url: https://github.com/zulip/zulip-desktop/archive/v4.0.0.tar.gz
+        sha256: 4f6e7087205708988145b60996fa15e2cf8acca78feddd52e8259bc34c15e7f0
       - type: file
         only-arches:
           - x86_64
-        url: https://github.com/zulip/zulip-desktop/releases/download/v3.0.0/Zulip-3.0.0-amd64.deb
-        sha256: c1adbe8fd92be7f9ef56bcf6e5bd9664b43b46e67e0bc33fdde662d6f164cfb5
+        url: https://github.com/zulip/zulip-desktop/releases/download/v4.0.0/Zulip-4.0.0-amd64.deb
+        sha256: 0675a8b3e34ae4e93048979a769bba02982e45475d5a1754b08a3d3740d2f7e0
       - type: file
         path: zulip-icon-128x128.png
       - type: file
