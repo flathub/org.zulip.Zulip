@@ -13,6 +13,8 @@ finish-args:
   - --socket=pulseaudio
   - --share=network
   - --filesystem=home
+  - --talk-name=org.freedesktop.Notifications
+  - --talk-name=org.kde.StatusNotifierWatcher
 modules:
   - name: zulip
     buildsystem: simple
