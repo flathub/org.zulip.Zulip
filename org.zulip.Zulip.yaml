@@ -4,7 +4,7 @@ base-version: '19.08'
 runtime: org.freedesktop.Platform
 runtime-version: '19.08'
 sdk: org.freedesktop.Sdk
-command: zulip
+command: zulip-wrapper
 rename-desktop-file: zulip.desktop
 separate-locales: false
 finish-args:
@@ -25,6 +25,7 @@ modules:
       - cp -r usr/* /app
       - mkdir -p /app/bin
       - cp -r opt/Zulip/* /app/bin
+      - install zulip-wrapper.sh /app/bin/zulip-wrapper
       - desktop-file-edit --set-key=Exec --set-value='zulip %U' /app/share/applications/zulip.desktop
       - desktop-file-edit --set-key=Icon --set-value='org.zulip.Zulip' /app/share/applications/zulip.desktop
       - rm -rf /app/share/icons
@@ -33,16 +34,21 @@ modules:
       - install -Dm644 org.zulip.Zulip.appdata.xml /app/share/appdata/org.zulip.Zulip.appdata.xml
     sources:
       - type: archive
-        url: https://github.com/zulip/zulip-desktop/archive/v4.0.3.tar.gz
-        sha256: 4de12df878dec5415e925db873d4c8967d6784e4390456ef3985718365c2c88e
+        url: https://github.com/zulip/zulip-desktop/archive/v5.0.0.tar.gz
+        sha256: 3013762bb716c0d4f6ef6030051017ea21d384c524cb36da0ee8165e9847b601
       - type: file
         only-arches:
           - x86_64
-        url: https://github.com/zulip/zulip-desktop/releases/download/v4.0.3/Zulip-4.0.3-amd64.deb
-        sha256: d89715cbb276efd63b30b91da3a6e2e6d7796e96f360956851590497ab5bdf78
+        url: https://github.com/zulip/zulip-desktop/releases/download/v5.0.0/Zulip-5.0.0-amd64.deb
+        sha256: 29601a8feb0883f6b14bc854d6185e006987356fb2a0f9a06fc73aac9a5f8a43
       - type: file
         path: zulip-icon-128x128.png
       - type: file
         path: zulip-icon-512x512.png
       - type: file
         path: org.zulip.Zulip.appdata.xml
+      - type: script
+        dest-filename: zulip-wrapper.sh
+        commands:
+          - 'export TMPDIR="$XDG_RUNTIME_DIR/app/$FLATPAK_ID"'
+          - 'exec zypak-wrapper /app/bin/zulip \"$@\"'
