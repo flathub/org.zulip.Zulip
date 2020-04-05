@@ -48,7 +48,9 @@ modules:
         sha256: 62472bc97fd702da1d526b3e9a605884679f7e0cd8a067b6b6369a2cbee2bd11
         dest-filename: SHASUMS256.txt-8.0.0
       - type: file
-        path: org.zulip.Zulip.appdata.xml
+        path: org.zulip.Zulip.desktop
+      - type: file
+        path: org.zulip.Zulip.metainfo.xml
       - type: script
         commands:
           - 'export TMPDIR="$XDG_RUNTIME_DIR/app/$FLATPAK_ID"'
@@ -73,4 +75,5 @@ modules:
         install -D -m 644 build/icons/${size}x${size}.png $FLATPAK_DEST/share/icons/hicolor/${size}x${size}/apps/$FLATPAK_ID.png;
         done;'
       - 'install -D -m 755 start-zulip.sh /app/bin/start-zulip'
-      - 'install -D -m 644 -t /app/share/appdata org.zulip.Zulip.appdata.xml'
+      - 'install -D -m 644 -t /app/share/applications org.zulip.Zulip.desktop'
+      - 'install -D -m 644 -t /app/share/metainfo org.zulip.Zulip.metainfo.xml'
