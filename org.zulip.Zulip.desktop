@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Zulip
+Comment=Zulip Desktop Client
+Icon=org.zulip.Zulip
+Exec=start-zulip
+Terminal=False
+Categories=Chat;InstantMessaging;
