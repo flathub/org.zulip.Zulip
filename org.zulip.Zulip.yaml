@@ -15,7 +15,9 @@ finish-args:
   - --socket=x11
   - --socket=pulseaudio
   - --share=network
-  - --filesystem=home
+  - --filesystem=xdg-download
+  - --filesystem=xdg-documents
+  - --filesystem=xdg-pictures
   - --talk-name=org.freedesktop.Notifications
   - --talk-name=org.kde.StatusNotifierWatcher
 modules:
