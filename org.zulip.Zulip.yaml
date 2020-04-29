@@ -29,8 +29,8 @@ modules:
   - name: zulip
     sources:
       - type: archive
-        url: https://github.com/zulip/zulip-desktop/archive/v5.0.0.tar.gz
-        sha256: 3013762bb716c0d4f6ef6030051017ea21d384c524cb36da0ee8165e9847b601
+        url: https://github.com/zulip/zulip-desktop/archive/v5.1.0.tar.gz
+        sha256: eebc0998c9935b9b3530a64e4c208fdae6b9e04a59e10e4635bf74dca3f7a474
       - generated-sources.0.json
       - generated-sources.1.json
       - generated-sources.2.json
