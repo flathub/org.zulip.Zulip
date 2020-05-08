@@ -20,6 +20,8 @@ finish-args:
   - --filesystem=xdg-pictures
   - --talk-name=org.freedesktop.Notifications
   - --talk-name=org.kde.StatusNotifierWatcher
+  # https://github.com/flathub/org.nextcloud.Nextcloud/issues/56#issuecomment-582424276
+  - --own-name=org.kde.*
 modules:
   - name: node
     buildsystem: simple
