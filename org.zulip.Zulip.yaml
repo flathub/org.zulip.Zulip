@@ -32,6 +32,7 @@ modules:
         url: https://github.com/zulip/zulip-desktop.git
         tag: v5.4.0
         commit: 67fa9cca8c7e89f8da2698e2f1956a8124ecd773
+        dest: zulip
       - generated-sources.json
       - type: file
         path: org.zulip.Zulip.desktop
@@ -51,12 +52,9 @@ modules:
         npm_config_cache: '/run/build/zulip/flatpak-node/npm-cache'
         npm_config_nodedir: '/usr/lib/sdk/node12'
     build-commands:
-      - 'node --version'
-      - 'npm --version'
-      - 'npm cache verify'
-      - 'env TMPDIR=$FLATPAK_BUILDER_BUILDDIR/flatpak-node/tmp npm install --offline --verbose'
-      - 'npm run pack --offline --verbose'
-      - 'mkdir -p /app/zulip && cp -a dist/*-unpacked/* /app/zulip'
+      - 'npm install --prefix=zulip --offline --verbose'
+      - 'npm run pack --prefix=zulip --offline --verbose'
+      - 'mkdir -p /app/zulip && cp -a zulip/dist/*-unpacked/* /app/zulip'
       - 'for size in {16,24,32,48,64,96,128,256,512}; do
         install -D -m 644 build/icons/${size}x${size}.png $FLATPAK_DEST/share/icons/hicolor/${size}x${size}/apps/$FLATPAK_ID.png;
         done;'
