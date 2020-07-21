@@ -30,8 +30,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/zulip/zulip-desktop.git
-        tag: v5.3.0
-        commit: 596561b731e26520b409157fab6e53604d011a66
+        tag: v5.4.0
+        commit: 67fa9cca8c7e89f8da2698e2f1956a8124ecd773
       - generated-sources.json
       - type: file
         path: org.zulip.Zulip.desktop
