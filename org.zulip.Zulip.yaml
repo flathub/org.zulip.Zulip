@@ -1,14 +1,13 @@
 app-id: org.zulip.Zulip
-branch: stable
 runtime: org.freedesktop.Platform
 runtime-version: '19.08'
 sdk: org.freedesktop.Sdk
 base: org.electronjs.Electron2.BaseApp
 base-version: '19.08'
-sdk-extensions:
-  - org.freedesktop.Sdk.Extension.node12
 separate-locales: false
 command: start-zulip
+rename-desktop-file: zulip.desktop
+rename-icon: zulip
 finish-args:
   - --share=ipc
   - --socket=wayland
@@ -21,62 +20,26 @@ finish-args:
   - --talk-name=org.freedesktop.Notifications
   - --talk-name=org.kde.StatusNotifierWatcher
 modules:
-  - name: node
-    buildsystem: simple
-    build-commands:
-      - '/usr/lib/sdk/node12/install-sdk.sh'
+  - shared-modules/libsecret/libsecret.json
 
   - name: zulip
     sources:
-      - type: archive
-        url: https://github.com/zulip/zulip-desktop/archive/v5.2.0.tar.gz
-        sha256: d93efc190d53550eed85c77e566f15f767bf0a91979c51bb7d345548e671fe08
-      - generated-sources.0.json
-      - generated-sources.1.json
-      - generated-sources.2.json
-      - generated-sources.3.json
       - type: file
-        only-arches: ["x86_64"]
-        dest: flatpak-node/electron-cache
-        url: https://github.com/electron/electron/releases/download/v8.0.0/chromedriver-v8.0.0-linux-x64.zip
-        sha256: 707ee089d574abf68825dbea4472799ee5ee0b9971315ec128f0b23a51099117
-      - type: file
-        only-arches: ["aarch64"]
-        dest: flatpak-node/electron-cache
-        url: https://github.com/electron/electron/releases/download/v8.0.0/chromedriver-v8.0.0-linux-arm64.zip
-        sha256: b3d6871cf138748d14a624fa44998cf6620eb6e65f9ca567384f7b82aba32e85
-      - type: file
-        dest: flatpak-node/electron-cache
-        url: https://github.com/electron/electron/releases/download/v8.0.0/SHASUMS256.txt
-        sha256: 62472bc97fd702da1d526b3e9a605884679f7e0cd8a067b6b6369a2cbee2bd11
-        dest-filename: SHASUMS256.txt-8.0.0
-      - type: file
-        path: org.zulip.Zulip.desktop
+        url: https://github.com/zulip/zulip-desktop/releases/download/v5.4.2/Zulip-5.4.2-amd64.deb
+        sha256: f39a5de8517489be40fa4a9ebb182ec2707e8f864043ce08ef1f208241ddab68
       - type: file
         path: org.zulip.Zulip.metainfo.xml
       - type: script
         commands:
-          - 'export TMPDIR="$XDG_RUNTIME_DIR/app/$FLATPAK_ID"'
-          - 'exec zypak-wrapper /app/zulip/zulip "$@"'
+          - export TMPDIR="$XDG_RUNTIME_DIR/app/$FLATPAK_ID"
+          - exec zypak-wrapper /app/Zulip/zulip "$@"
         dest-filename: start-zulip.sh
     buildsystem: simple
-    build-options:
-      append-path: '/usr/lib/sdk/node12/bin'
-      env:
-        ELECTRON_CACHE: '/run/build/zulip/flatpak-node/electron-cache'
-        electron_config_cache: '/run/build/zulip/flatpak-node/electron-cache'
-        npm_config_cache: '/run/build/zulip/flatpak-node/npm-cache'
-        npm_config_nodedir: '/usr/lib/sdk/node12'
     build-commands:
-      - 'node --version'
-      - 'npm --version'
-      - 'npm cache verify'
-      - 'env TMPDIR=$FLATPAK_BUILDER_BUILDDIR/flatpak-node/tmp npm install --offline --verbose'
-      - 'npm run pack --offline --verbose'
-      - 'mkdir -p /app/zulip && cp -a dist/*-unpacked/* /app/zulip'
-      - 'for size in {16,24,32,48,64,96,128,256,512}; do
-        install -D -m 644 build/icons/${size}x${size}.png $FLATPAK_DEST/share/icons/hicolor/${size}x${size}/apps/$FLATPAK_ID.png;
-        done;'
-      - 'install -D -m 755 start-zulip.sh /app/bin/start-zulip'
-      - 'install -D -m 644 -t /app/share/applications org.zulip.Zulip.desktop'
-      - 'install -D -m 644 -t /app/share/metainfo org.zulip.Zulip.metainfo.xml'
+      - ar -x *.deb
+      - tar -xf data.tar.xz
+      - cp -a opt/* usr/* $FLATPAK_DEST
+      - rm -rf $FLATPAK_DEST/share/icons/hicolor/1024x1024/
+      - install -Dm755 start-zulip.sh $FLATPAK_DEST/bin/start-zulip
+      - install -Dm644 -t $FLATPAK_DEST/share/metainfo $FLATPAK_ID.metainfo.xml
+      - desktop-file-edit --set-key=Exec --set-value="start-zulip %U" $FLATPAK_DEST/share/applications/zulip.desktop
