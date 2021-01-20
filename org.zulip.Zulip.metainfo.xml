@@ -22,7 +22,7 @@
   <developer_name>Kandra Labs, Inc.</developer_name>
   <update_contact>support@zulipchat.com</update_contact>
   <releases>
-    <release version="5.4.3" date="2020-09-10"/>
+    <release version="5.5.0" date="2020-12-02"/>
   </releases>
   <content_rating type="oars-1.1">
     <content_attribute id="social-chat">intense</content_attribute>
