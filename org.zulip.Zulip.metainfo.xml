@@ -8,21 +8,24 @@
   <summary>Zulip Desktop Client for Linux</summary>
   <description>
     <p>
-      Zulip combines the immediacy of Slack with an email threading model.
-      With Zulip, you can catch up on important conversations while ignoring
-      irrelevant ones.
+      Zulip is a powerful, open source group chat application that combines the immediacy of real-time chat with the productivity benefits of threaded conversations. Zulip is used by open source projects, Fortune 500 companies, large standards bodies, and others who need a real-time chat system that allows users to easily process hundreds or thousands of messages a day.
     </p>
   </description>
   <screenshots>
     <screenshot type="default">
-      <image>http://i.imgur.com/ChzTq4F.png</image>
+      <caption>Light theme</caption>
+      <image>https://camo.githubusercontent.com/72d743305308fe950fdcdae992a03724763b5887a69662ebb2ce37d56a54f5b4/68747470733a2f2f692e696d6775722e636f6d2f73316f365452412e706e67</image>
+    </screenshot>
+    <screenshot>
+      <caption>Dark theme</caption>
+      <image>https://camo.githubusercontent.com/83ebc67b19b579d1a3cac4c07d3298c40ffd269457ac71e7e3a7e445002e8929/68747470733a2f2f692e696d6775722e636f6d2f76656b4b6e57342e706e67</image>
     </screenshot>
   </screenshots>
-  <url type="homepage">https://zulipchat.com/apps/</url>
+  <url type="homepage">https://zulip.com/apps/</url>
   <developer_name>Kandra Labs, Inc.</developer_name>
-  <update_contact>support@zulipchat.com</update_contact>
+  <update_contact>support@zulip.com</update_contact>
   <releases>
-    <release version="5.5.0" date="2020-12-02"/>
+    <release version="5.6.0" date="2021-02-16"/>
   </releases>
   <content_rating type="oars-1.1">
     <content_attribute id="social-chat">intense</content_attribute>
