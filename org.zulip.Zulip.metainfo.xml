@@ -15,14 +15,14 @@
   </description>
   <screenshots>
     <screenshot type="default">
-      <image>http://i.imgur.com/ChzTq4F.png</image>
+      <image>https://raw.githubusercontent.com/zulip/zulip/aa5770f824c76558ffa05bfe5d4206b75f87ffa4/static/images/landing-page/ubuntu.png</image>
     </screenshot>
   </screenshots>
-  <url type="homepage">https://zulipchat.com/apps/</url>
+  <url type="homepage">https://zulip.com/apps/</url>
   <developer_name>Kandra Labs, Inc.</developer_name>
-  <update_contact>support@zulipchat.com</update_contact>
+  <update_contact>support@zulip.com</update_contact>
   <releases>
-    <release version="5.5.0" date="2020-12-02"/>
+    <release version="5.6.0" date="2021-02-16"/>
   </releases>
   <content_rating type="oars-1.1">
     <content_attribute id="social-chat">intense</content_attribute>
