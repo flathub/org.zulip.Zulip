@@ -15,7 +15,12 @@
   </description>
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/zulip/zulip/aa5770f824c76558ffa05bfe5d4206b75f87ffa4/static/images/landing-page/ubuntu.png</image>
+      <caption>Light theme</caption>
+      <image>https://camo.githubusercontent.com/72d743305308fe950fdcdae992a03724763b5887a69662ebb2ce37d56a54f5b4/68747470733a2f2f692e696d6775722e636f6d2f73316f365452412e706e67</image>
+    </screenshot>
+    <screenshot>
+      <caption>Dark theme</caption>
+      <image>https://camo.githubusercontent.com/83ebc67b19b579d1a3cac4c07d3298c40ffd269457ac71e7e3a7e445002e8929/68747470733a2f2f692e696d6775722e636f6d2f76656b4b6e57342e706e67</image>
     </screenshot>
   </screenshots>
   <url type="homepage">https://zulip.com/apps/</url>
