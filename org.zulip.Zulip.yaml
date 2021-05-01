@@ -25,8 +25,8 @@ modules:
   - name: zulip
     sources:
       - type: file
-        url: https://github.com/zulip/zulip-desktop/releases/download/v5.6.0/Zulip-5.6.0-amd64.deb
-        sha256: 6780f271f09063674c0abf8c63d1b6ec7f6e1554e64fd3b53cf050fce58c3517
+        url: https://github.com/zulip/zulip-desktop/releases/download/v5.7.0/Zulip-5.7.0-amd64.deb
+        sha256: 85ac9362f0865163b26babf0f71ba3f5609be04fc96ff138c7b4da569e8ab3f0
         x-checker-data:
           type: json
           url: https://api.github.com/repos/zulip/zulip-desktop/releases/latest
