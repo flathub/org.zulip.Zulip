@@ -20,8 +20,6 @@ finish-args:
   - --talk-name=org.freedesktop.Notifications
   - --talk-name=org.kde.StatusNotifierWatcher
 modules:
-  - shared-modules/libsecret/libsecret.json
-
   - name: zulip
     sources:
       - type: file
