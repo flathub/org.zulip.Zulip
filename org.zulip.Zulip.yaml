@@ -4,45 +4,68 @@ runtime-version: '20.08'
 sdk: org.freedesktop.Sdk
 base: org.electronjs.Electron2.BaseApp
 base-version: '20.08'
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.node14
+command: run.sh
 separate-locales: false
-command: start-zulip
-rename-desktop-file: zulip.desktop
-rename-icon: zulip
 finish-args:
   - --share=ipc
-  - --socket=wayland
   - --socket=x11
   - --socket=pulseaudio
   - --share=network
+  - --device=dri
   - --filesystem=xdg-download
   - --filesystem=xdg-documents
   - --filesystem=xdg-pictures
   - --talk-name=org.freedesktop.Notifications
   - --talk-name=org.kde.StatusNotifierWatcher
+build-options:
+  append-path: /usr/lib/sdk/node14/bin
+  cflags: -O2 -g
+  cxxflags: -O2 -g
+  env:
+    NPM_CONFIG_LOGLEVEL: info
 modules:
   - name: zulip
+    buildsystem: simple
+    subdir: main
+    build-options:
+      env:
+        XDG_CACHE_HOME: /run/build/zulip/flatpak-node/cache
+        npm_config_cache: /run/build/zulip/flatpak-node/npm-cache
+        npm_config_nodedir: /usr/lib/sdk/node14
+        npm_config_offline: 'true'
+    build-commands:
+      - npm install --offline
+      - |
+        . ../flatpak-node/electron-builder-arch-args.sh
+        npm run dist -- $ELECTRON_BUILDER_ARCH_ARGS  --linux --dir
+      - cp -a dist/linux*unpacked /app/main
+      - |
+        for size in 16 24 32 48 64 96 128 256 512
+        do install -D -m 644 build/icons/${size}x${size}.png $FLATPAK_DEST/share/icons/hicolor/${size}x${size}/apps/$FLATPAK_ID.png
+        done
+      - install -D -m 755 -t $FLATPAK_DEST/bin ../run.sh
+      - install -D -m 644 -t $FLATPAK_DEST/share/applications ../$FLATPAK_ID.desktop
+      - install -D -m 644 -t $FLATPAK_DEST/share/metainfo ../$FLATPAK_ID.metainfo.xml
     sources:
-      - type: file
-        url: https://github.com/zulip/zulip-desktop/releases/download/v5.8.1/Zulip-5.8.1-amd64.deb
-        sha256: c1eb61f9a21911c5a77941b0ccf72fb18346e548e3b742871fa5e4d0072bce28
+      - type: git
+        url: https://github.com/zulip/zulip-desktop.git
+        tag: v5.8.1
+        commit: 90a65ab6ccf3a5f165cb57caf1ddd3a0b26cd894
+        dest: main
         x-checker-data:
           type: json
           url: https://api.github.com/repos/zulip/zulip-desktop/releases/latest
+          tag-query: .tag_name
           version-query: .tag_name | sub("^v"; "")
-          url-query: .assets[] | select(.name=="Zulip-\($version)-amd64.deb") | .browser_download_url
+          timestamp-query: .published_at
+      - generated-sources.json
+      - type: script
+        dest-filename: run.sh
+        commands:
+          - zypak-wrapper.sh /app/main/zulip "$@"
+      - type: file
+        path: org.zulip.Zulip.desktop
       - type: file
         path: org.zulip.Zulip.metainfo.xml
-      - type: script
-        commands:
-          - export TMPDIR="$XDG_RUNTIME_DIR/app/$FLATPAK_ID"
-          - exec zypak-wrapper /app/Zulip/zulip "$@"
-        dest-filename: start-zulip.sh
-    buildsystem: simple
-    build-commands:
-      - ar -x *.deb
-      - tar -xf data.tar.xz
-      - cp -a opt/* usr/* $FLATPAK_DEST
-      - rm -rf $FLATPAK_DEST/share/icons/hicolor/1024x1024/
-      - install -Dm755 start-zulip.sh $FLATPAK_DEST/bin/start-zulip
-      - install -Dm644 -t $FLATPAK_DEST/share/metainfo $FLATPAK_ID.metainfo.xml
-      - desktop-file-edit --set-key=Exec --set-value="start-zulip %U" $FLATPAK_DEST/share/applications/zulip.desktop
