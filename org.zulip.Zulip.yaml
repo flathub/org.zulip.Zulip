@@ -55,8 +55,11 @@ modules:
         commit: 90a65ab6ccf3a5f165cb57caf1ddd3a0b26cd894
         dest: main
         x-checker-data:
-          type: git
-          tag-pattern: ^(v[\d.]+)$
+          type: json
+          url: https://api.github.com/repos/zulip/zulip-desktop/releases/latest
+          tag-query: .tag_name
+          version-query: .tag_name | sub("^v"; "")
+          timestamp-query: .published_at
       - generated-sources.json
       - type: script
         dest-filename: run.sh
