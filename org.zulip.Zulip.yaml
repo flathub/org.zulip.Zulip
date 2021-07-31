@@ -46,6 +46,7 @@ modules:
         do install -D -m 644 build/icons/${size}x${size}.png $FLATPAK_DEST/share/icons/hicolor/${size}x${size}/apps/$FLATPAK_ID.png
         done
       - install -D -m 755 -t $FLATPAK_DEST/bin ../run.sh
+      - install -D -m 644 -t $FLATPAK_DEST/share/applications ../$FLATPAK_ID.desktop
       - install -D -m 644 -t $FLATPAK_DEST/share/metainfo ../$FLATPAK_ID.metainfo.xml
     sources:
       - type: git
@@ -61,5 +62,7 @@ modules:
         dest-filename: run.sh
         commands:
           - zypak-wrapper.sh /app/main/zulip "$@"
+      - type: file
+        path: org.zulip.Zulip.desktop
       - type: file
         path: org.zulip.Zulip.metainfo.xml

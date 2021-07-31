@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Zulip
+Comment=Zulip Desktop Client for Linux
+Icon=org.zulip.Zulip
+Exec=run.sh
+Categories=Network;InstantMessaging;
+StartupWMClass=Zulip
