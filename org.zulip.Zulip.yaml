@@ -17,6 +17,8 @@ finish-args:
   - --filesystem=xdg-download
   - --filesystem=xdg-documents
   - --filesystem=xdg-pictures
+  - --env=GST_VAAPI_ALL_DRIVERS=1
+  - --env=LIBVA_DRIVER_NAME=iHD
   - --talk-name=org.freedesktop.Notifications
   - --talk-name=org.kde.StatusNotifierWatcher
 build-options:
