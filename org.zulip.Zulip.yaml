@@ -52,8 +52,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/zulip/zulip-desktop.git
-        tag: v5.9.1
-        commit: d6775d64a3ea715ed115bcf3541eb6e07028f187
+        tag: v5.9.2
+        commit: 73441d791c929a69e53bc396195a09641360a201
         dest: main
         x-checker-data:
           type: json
