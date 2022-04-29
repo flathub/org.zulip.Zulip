@@ -25,6 +25,7 @@
   <developer_name>Kandra Labs, Inc.</developer_name>
   <update_contact>support@zulip.com</update_contact>
   <releases>
+    <release version="5.9.3" date="2022-04-29"/>
     <release version="5.9.2" date="2022-04-20"/>
     <release version="5.9.1" date="2022-04-08"/>
     <release version="5.9.0" date="2022-04-02"/>
