@@ -20,6 +20,7 @@ finish-args:
   - --filesystem=xdg-pictures
   - --talk-name=org.freedesktop.Notifications
   - --talk-name=org.kde.StatusNotifierWatcher
+  - --own-name=org.kde.*
   - --talk-name=com.canonical.AppMenu.Registrar
 build-options:
   append-path: /usr/lib/sdk/node16/bin
@@ -66,7 +67,9 @@ modules:
       - type: script
         dest-filename: run.sh
         commands:
-          - zypak-wrapper.sh /app/main/zulip "$@"
+          - set -eu
+          - export TMPDIR="$XDG_RUNTIME_DIR/app/$FLATPAK_ID"
+          - exec zypak-wrapper.sh /app/main/zulip "$@"
       - type: file
         path: org.zulip.Zulip.desktop
       - type: file
