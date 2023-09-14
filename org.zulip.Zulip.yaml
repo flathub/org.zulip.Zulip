@@ -5,7 +5,7 @@ sdk: org.freedesktop.Sdk
 base: org.electronjs.Electron2.BaseApp
 base-version: '22.08'
 sdk-extensions:
-  - org.freedesktop.Sdk.Extension.node16
+  - org.freedesktop.Sdk.Extension.node18
 command: run.sh
 separate-locales: false
 finish-args:
@@ -23,7 +23,7 @@ finish-args:
   - --own-name=org.kde.*
   - --talk-name=com.canonical.AppMenu.Registrar
 build-options:
-  append-path: /usr/lib/sdk/node16/bin
+  append-path: /usr/lib/sdk/node18/bin
   cflags: -O2 -g
   cxxflags: -O2 -g
   env:
@@ -36,7 +36,7 @@ modules:
       env:
         XDG_CACHE_HOME: /run/build/zulip/flatpak-node/cache
         npm_config_cache: /run/build/zulip/flatpak-node/npm-cache
-        npm_config_nodedir: /usr/lib/sdk/node16
+        npm_config_nodedir: /usr/lib/sdk/node18
         npm_config_offline: 'true'
     build-commands:
       - npm install --offline
@@ -54,8 +54,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/zulip/zulip-desktop.git
-        tag: v5.10.0
-        commit: 7fba8cfae92d9a8d570cb97bf802117f58d80a27
+        tag: v5.10.1
+        commit: e90f3732c5f2a43326e53b2133f9b3d4f9f36b6a
         dest: main
         x-checker-data:
           type: json
