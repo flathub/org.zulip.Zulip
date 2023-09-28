@@ -20,7 +20,6 @@ finish-args:
   - --filesystem=xdg-pictures
   - --talk-name=org.freedesktop.Notifications
   - --talk-name=org.kde.StatusNotifierWatcher
-  - --own-name=org.kde.*
   - --talk-name=com.canonical.AppMenu.Registrar
 build-options:
   append-path: /usr/lib/sdk/node18/bin
