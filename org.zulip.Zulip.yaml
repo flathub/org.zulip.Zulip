@@ -18,7 +18,6 @@ finish-args:
   - --filesystem=xdg-download
   - --filesystem=xdg-documents
   - --filesystem=xdg-pictures
-  - --talk-name=org.freedesktop.Notifications
   - --talk-name=org.kde.StatusNotifierWatcher
   - --talk-name=com.canonical.AppMenu.Registrar
 build-options:
