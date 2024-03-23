@@ -45,4 +45,5 @@
   <content_rating type="oars-1.1">
     <content_attribute id="social-chat">intense</content_attribute>
   </content_rating>
+  <launchable type="desktop-id">org.zulip.Zulip.desktop</launchable>
 </component>
