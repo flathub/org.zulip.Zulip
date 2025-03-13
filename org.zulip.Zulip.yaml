@@ -1,11 +1,11 @@
 app-id: org.zulip.Zulip
 runtime: org.freedesktop.Platform
-runtime-version: '23.08'
+runtime-version: '24.08'
 sdk: org.freedesktop.Sdk
 base: org.electronjs.Electron2.BaseApp
-base-version: '23.08'
+base-version: '24.08'
 sdk-extensions:
-  - org.freedesktop.Sdk.Extension.node18
+  - org.freedesktop.Sdk.Extension.node22
 command: run.sh
 separate-locales: false
 finish-args:
@@ -21,7 +21,7 @@ finish-args:
   - --talk-name=org.kde.StatusNotifierWatcher
   - --talk-name=com.canonical.AppMenu.Registrar
 build-options:
-  append-path: /usr/lib/sdk/node18/bin
+  append-path: /usr/lib/sdk/node22/bin
   cflags: -O2 -g
   cxxflags: -O2 -g
   env:
@@ -34,7 +34,7 @@ modules:
       env:
         XDG_CACHE_HOME: /run/build/zulip/flatpak-node/cache
         npm_config_cache: /run/build/zulip/flatpak-node/npm-cache
-        npm_config_nodedir: /usr/lib/sdk/node18
+        npm_config_nodedir: /usr/lib/sdk/node22
         npm_config_offline: 'true'
     build-commands:
       - npm install --offline
@@ -43,17 +43,15 @@ modules:
         npm run dist -- $ELECTRON_BUILDER_ARCH_ARGS  --linux --dir
       - cp -a dist/linux*unpacked /app/main
       - |
-        for size in 16 24 32 48 64 96 128 256 512
-        do install -D -m 644 build/icons/${size}x${size}.png $FLATPAK_DEST/share/icons/hicolor/${size}x${size}/apps/$FLATPAK_ID.png
-        done
+        install -D -m 644 build/zulip.png $FLATPAK_DEST/share/icons/hicolor/512x512/apps/$FLATPAK_ID.png
       - install -D -m 755 -t $FLATPAK_DEST/bin ../run.sh
       - install -D -m 644 -t $FLATPAK_DEST/share/applications ../$FLATPAK_ID.desktop
       - install -D -m 644 -t $FLATPAK_DEST/share/metainfo ../$FLATPAK_ID.metainfo.xml
     sources:
       - type: git
         url: https://github.com/zulip/zulip-desktop.git
-        tag: v5.11.1
-        commit: 38c7695a993fa06b47d07543a8e4c1eae527686f
+        tag: v5.12.0
+        commit: 15902e51f6ce4c4c2844b6c82d34caaf207b2857
         dest: main
         x-checker-data:
           type: json
