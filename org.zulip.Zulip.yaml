@@ -1,71 +1,51 @@
 app-id: org.zulip.Zulip
 runtime: org.freedesktop.Platform
-runtime-version: '24.08'
+runtime-version: '25.08'
 sdk: org.freedesktop.Sdk
 base: org.electronjs.Electron2.BaseApp
-base-version: '24.08'
-sdk-extensions:
-  - org.freedesktop.Sdk.Extension.node22
+base-version: '25.08'
 command: run.sh
 separate-locales: false
 finish-args:
   - --share=ipc
-  - --socket=x11
+  - --socket=fallback-x11
   - --socket=wayland
   - --socket=pulseaudio
   - --share=network
   - --device=dri
   - --filesystem=xdg-download
-  - --filesystem=xdg-documents
-  - --filesystem=xdg-pictures
   - --talk-name=org.kde.StatusNotifierWatcher
   - --talk-name=com.canonical.AppMenu.Registrar
-build-options:
-  append-path: /usr/lib/sdk/node22/bin
-  cflags: -O2 -g
-  cxxflags: -O2 -g
-  env:
-    NPM_CONFIG_LOGLEVEL: info
 modules:
   - name: zulip
     buildsystem: simple
-    subdir: main
-    build-options:
-      env:
-        XDG_CACHE_HOME: /run/build/zulip/flatpak-node/cache
-        npm_config_cache: /run/build/zulip/flatpak-node/npm-cache
-        npm_config_nodedir: /usr/lib/sdk/node22
-        npm_config_offline: 'true'
     build-commands:
-      - npm install --offline
-      - |
-        . ../flatpak-node/electron-builder-arch-args.sh
-        npm run dist -- $ELECTRON_BUILDER_ARCH_ARGS  --linux --dir
-      - cp -a dist/linux*unpacked /app/main
-      - |
-        install -D -m 644 build/zulip.png $FLATPAK_DEST/share/icons/hicolor/512x512/apps/$FLATPAK_ID.png
-      - install -D -m 755 -t $FLATPAK_DEST/bin ../run.sh
-      - install -D -m 644 -t $FLATPAK_DEST/share/applications ../$FLATPAK_ID.desktop
-      - install -D -m 644 -t $FLATPAK_DEST/share/metainfo ../$FLATPAK_ID.metainfo.xml
+      - mv -t $FLATPAK_DEST main
+      - install -D -m 644 zulip.png $FLATPAK_DEST/share/icons/hicolor/512x512/apps/$FLATPAK_ID.png
+      - install -D -m 755 -t $FLATPAK_DEST/bin run.sh
+      - install -D -m 644 -t $FLATPAK_DEST/share/applications $FLATPAK_ID.desktop
+      - install -D -m 644 -t $FLATPAK_DEST/share/metainfo $FLATPAK_ID.metainfo.xml
     sources:
-      - type: git
-        url: https://github.com/zulip/zulip-desktop.git
-        tag: v5.12.2
-        commit: c08bbf49ab257ba2303d8e2f81cc6a588fbe357b
+      - type: archive
         dest: main
+        only-arches:
+          - x86_64
+        url: https://github.com/zulip/zulip-desktop/releases/download/v5.12.3/Zulip-5.12.3-x64.tar.xz
+        sha256: d37b1c8b8defe0f2868f6682bd2a1660e29de9b9096f33597633dbc23087555f
         x-checker-data:
           type: json
           url: https://api.github.com/repos/zulip/zulip-desktop/releases/latest
           tag-query: .tag_name
           version-query: .tag_name | sub("^v"; "")
           timestamp-query: .published_at
-      - generated-sources.json
       - type: script
         dest-filename: run.sh
         commands:
           - set -eu
           - export TMPDIR="$XDG_RUNTIME_DIR/app/$FLATPAK_ID"
           - exec zypak-wrapper.sh /app/main/zulip "$@"
+      - type: file
+        path: zulip.png
       - type: file
         path: org.zulip.Zulip.desktop
       - type: file
