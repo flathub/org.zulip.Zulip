@@ -1,9 +1,11 @@
 app-id: org.zulip.Zulip
 runtime: org.freedesktop.Platform
-runtime-version: '25.08'
+runtime-version: "25.08"
 sdk: org.freedesktop.Sdk
 base: org.electronjs.Electron2.BaseApp
-base-version: '25.08'
+base-version: "25.08"
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.node22
 command: run.sh
 separate-locales: false
 finish-args:
@@ -19,33 +21,50 @@ finish-args:
 modules:
   - name: zulip
     buildsystem: simple
+    build-options:
+      append-path: /run/build/zulip/bin:/usr/lib/sdk/node22/bin
+      env:
+        XDG_CACHE_HOME: /run/build/zulip/flatpak-node/cache
+        npm_config_nodedir: /run/build/zulip/flatpak-node/cache/node-gyp/39.2.7
+        npm_config_store_dir: /run/build/zulip/flatpak-node/pnpm-store
+    subdir: main
     build-commands:
-      - mv -t $FLATPAK_DEST main
-      - install -D -m 644 zulip.png $FLATPAK_DEST/share/icons/hicolor/512x512/apps/$FLATPAK_ID.png
-      - install -D -m 755 -t $FLATPAK_DEST/bin run.sh
-      - install -D -m 644 -t $FLATPAK_DEST/share/applications $FLATPAK_ID.desktop
-      - install -D -m 644 -t $FLATPAK_DEST/share/metainfo $FLATPAK_ID.metainfo.xml
+      - install -Dm644 ../flatpak-node/pnpm-store/v10/index/31/78339530c41277490774c16ef779b8540effc81a20da351df7a7f2f79fe6ba-@electron+node-gyp@10.2.0-electron.1.json ../flatpak-node/pnpm-store/v10/https+++codeload.github.com+electron+node-gyp+tar.gz+06b29aafb7708acef8b3669835c8a7857ebc92d2/integrity.json
+      - mkdir ../bin
+      - ln -s ../pnpm/bin/pnpm.cjs ../bin/pnpm
+      - pnpm install --frozen-lockfile --offline
+      - |
+        set -eux
+        . ../flatpak-node/electron-builder-arch-args.sh
+        script /dev/null -c "node --run pack -- $ELECTRON_BUILDER_ARCH_ARGS --linux"
+      - mv dist/linux*-unpacked $FLATPAK_DEST/main
+      - install -D -m 644 build/zulip.png $FLATPAK_DEST/share/icons/hicolor/512x512/apps/$FLATPAK_ID.png
+      - install -D -m 755 -t $FLATPAK_DEST/bin ../run.sh
+      - install -D -m 644 -t $FLATPAK_DEST/share/applications ../$FLATPAK_ID.desktop
+      - install -D -m 644 -t $FLATPAK_DEST/share/metainfo ../$FLATPAK_ID.metainfo.xml
     sources:
-      - type: archive
+      - type: git
         dest: main
-        only-arches:
-          - x86_64
-        url: https://github.com/zulip/zulip-desktop/releases/download/v5.12.3/Zulip-5.12.3-x64.tar.xz
-        sha256: d37b1c8b8defe0f2868f6682bd2a1660e29de9b9096f33597633dbc23087555f
+        url: https://github.com/zulip/zulip-desktop.git
+        tag: v5.12.3
+        commit: 1fa9aaf3fa2ffdef7240338fea1c38b563897d28
         x-checker-data:
           type: json
           url: https://api.github.com/repos/zulip/zulip-desktop/releases/latest
           tag-query: .tag_name
           version-query: .tag_name | sub("^v"; "")
           timestamp-query: .published_at
+      - type: archive
+        dest: pnpm
+        url: https://registry.npmjs.org/pnpm/-/pnpm-10.25.0.tgz
+        sha512: 5e82639027af37cf832061bcc6d639c219634488e0f2baebe785028a793de7b525ffcd3f7ff574f5e9860654e098fe852ba8ac5dd5cefe1767d23a020a92f501
+      - generated-sources.json
       - type: script
         dest-filename: run.sh
         commands:
           - set -eu
           - export TMPDIR="$XDG_RUNTIME_DIR/app/$FLATPAK_ID"
           - exec zypak-wrapper.sh /app/main/zulip "$@"
-      - type: file
-        path: zulip.png
       - type: file
         path: org.zulip.Zulip.desktop
       - type: file
