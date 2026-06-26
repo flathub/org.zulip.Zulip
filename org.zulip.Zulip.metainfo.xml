@@ -14,11 +14,11 @@
   <screenshots>
     <screenshot type="default">
       <caption>Light theme</caption>
-      <image>https://i.imgur.com/s1o6TRA.png</image>
+      <image>https://raw.githubusercontent.com/zulip/zulip-desktop/refs/tags/v5.12.4/docs/images/zulip-desktop-screenshot-light.webp</image>
     </screenshot>
     <screenshot>
       <caption>Dark theme</caption>
-      <image>https://i.imgur.com/vekKnW4.png</image>
+      <image>https://raw.githubusercontent.com/zulip/zulip-desktop/refs/tags/v5.12.4/docs/images/zulip-desktop-screenshot-dark.webp</image>
     </screenshot>
   </screenshots>
   <url type="homepage">https://zulip.com/apps/</url>
@@ -30,6 +30,7 @@
   <developer_name>Kandra Labs, Inc.</developer_name>
   <update_contact>support@zulip.com</update_contact>
   <releases>
+    <release version="5.12.4" date="2026-06-25"/>
     <release version="5.12.3" date="2025-12-12"/>
     <release version="5.12.2" date="2025-09-01"/>
     <release version="5.12.1" date="2025-08-29"/>

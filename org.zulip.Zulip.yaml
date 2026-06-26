@@ -5,7 +5,7 @@ sdk: org.freedesktop.Sdk
 base: org.electronjs.Electron2.BaseApp
 base-version: "25.08"
 sdk-extensions:
-  - org.freedesktop.Sdk.Extension.node22
+  - org.freedesktop.Sdk.Extension.node24
 command: run.sh
 separate-locales: false
 finish-args:
@@ -22,21 +22,20 @@ modules:
   - name: zulip
     buildsystem: simple
     build-options:
-      append-path: /run/build/zulip/bin:/usr/lib/sdk/node22/bin
-      env:
-        XDG_CACHE_HOME: /run/build/zulip/flatpak-node/cache
-        npm_config_nodedir: /run/build/zulip/flatpak-node/cache/node-gyp/39.2.7
-        npm_config_store_dir: /run/build/zulip/flatpak-node/pnpm-store
+      append-path: /run/build/zulip/bin:/usr/lib/sdk/node24/bin
     subdir: main
     build-commands:
-      - install -Dm644 ../flatpak-node/pnpm-store/v10/index/31/78339530c41277490774c16ef779b8540effc81a20da351df7a7f2f79fe6ba-@electron+node-gyp@10.2.0-electron.1.json ../flatpak-node/pnpm-store/v10/https+++codeload.github.com+electron+node-gyp+tar.gz+06b29aafb7708acef8b3669835c8a7857ebc92d2/integrity.json
       - mkdir ../bin
-      - ln -s ../pnpm/bin/pnpm.cjs ../bin/pnpm
-      - pnpm install --frozen-lockfile --offline
+      - ln -s ../pnpm/bin/pnpm.mjs ../bin/pnpm
+      - cat ../pnpm-workspace.yaml >> pnpm-workspace.yaml
+      - "echo 'trustLockfile: true' >> pnpm-workspace.yaml"
+      - pnpm install --frozen-lockfile --ignore-scripts --offline
+      - npm_package_config_node_gyp_nodedir="$FLATPAK_BUILDER_BUILDDIR/flatpak-node/cache/node-gyp/42.5.0" node --run postinstall
       - |
         set -eux
         . ../flatpak-node/electron-builder-arch-args.sh
-        script /dev/null -c "node --run pack -- $ELECTRON_BUILDER_ARCH_ARGS --linux"
+        export XDG_CACHE_HOME="$FLATPAK_BUILDER_BUILDDIR/flatpak-node/cache"
+        node --run pack -- $ELECTRON_BUILDER_ARCH_ARGS --linux --config.electronDownload.unsafelyDisableChecksums=true
       - mv dist/linux*-unpacked $FLATPAK_DEST/main
       - install -D -m 644 build/zulip.png $FLATPAK_DEST/share/icons/hicolor/512x512/apps/$FLATPAK_ID.png
       - install -D -m 755 -t $FLATPAK_DEST/bin ../run.sh
@@ -46,8 +45,8 @@ modules:
       - type: git
         dest: main
         url: https://github.com/zulip/zulip-desktop.git
-        tag: v5.12.3
-        commit: 1fa9aaf3fa2ffdef7240338fea1c38b563897d28
+        tag: v5.12.4
+        commit: 9d9e25bd781f681eac952768367432514c15858d
         x-checker-data:
           type: json
           url: https://api.github.com/repos/zulip/zulip-desktop/releases/latest
@@ -56,8 +55,8 @@ modules:
           timestamp-query: .published_at
       - type: archive
         dest: pnpm
-        url: https://registry.npmjs.org/pnpm/-/pnpm-10.25.0.tgz
-        sha512: 5e82639027af37cf832061bcc6d639c219634488e0f2baebe785028a793de7b525ffcd3f7ff574f5e9860654e098fe852ba8ac5dd5cefe1767d23a020a92f501
+        url: https://registry.npmjs.org/pnpm/-/pnpm-11.9.0.tgz
+        sha512: bd682d5d03fe525ef7c9fd6780c6884d1e756ac4c9c9fe00c538782824310dcf90e3ddc4f53835f06dfaebd5085e41855e0bcbb3b60de2ac5bbab89e5036f03b
       - generated-sources.json
       - type: script
         dest-filename: run.sh
