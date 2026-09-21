@@ -1,9 +1,9 @@
 app-id: org.zulip.Zulip
 runtime: org.freedesktop.Platform
-runtime-version: "25.08"
+runtime-version: "26.08"
 sdk: org.freedesktop.Sdk
 base: org.electronjs.Electron2.BaseApp
-base-version: "25.08"
+base-version: "26.08"
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.node24
 command: run.sh
@@ -45,8 +45,8 @@ modules:
       - type: git
         dest: main
         url: https://github.com/zulip/zulip-desktop.git
-        tag: v5.13.1
-        commit: 9cd09fbc98d96103f17ab59b807b35740e01c2ac
+        tag: v5.13.2
+        commit: 1cc112def5cd4b0b3ffe15c0857258c527b4421a
         x-checker-data:
           type: json
           url: https://api.github.com/repos/zulip/zulip-desktop/releases/latest
