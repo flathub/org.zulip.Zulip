@@ -28,9 +28,9 @@ modules:
       - mkdir ../bin
       - ln -s ../pnpm/pnpm ../bin/pnpm
       - cat ../pnpm-workspace.yaml >> pnpm-workspace.yaml
-      - "echo 'trustLockfile: true' >> pnpm-workspace.yaml"
-      - pnpm install --frozen-lockfile --ignore-scripts --offline
-      - npm_package_config_node_gyp_nodedir="$FLATPAK_BUILDER_BUILDDIR/flatpak-node/cache/node-gyp/45.1.0" node --run postinstall
+      - pnpm store add --trust-lockfile ../flatpak-node/pnpm-tarballs
+      - pnpm install --frozen-lockfile --ignore-scripts --offline --trust-lockfile
+      - npm_package_config_node_gyp_nodedir="$FLATPAK_BUILDER_BUILDDIR/flatpak-node/cache/node-gyp/45.4.1" node --run postinstall
       - |
         set -eux
         . ../flatpak-node/electron-builder-arch-args.sh
@@ -45,8 +45,8 @@ modules:
       - type: git
         dest: main
         url: https://github.com/zulip/zulip-desktop.git
-        tag: v5.14.2
-        commit: 308ea3b248badd4664d533afe08427022563536e
+        tag: v5.14.3
+        commit: 4a5471e967047fd30325a1f4c865710af7287629
         x-checker-data:
           type: json
           url: https://api.github.com/repos/zulip/zulip-desktop/releases/latest
@@ -55,28 +55,28 @@ modules:
           timestamp-query: .published_at
       - type: archive
         dest: pnpm
-        url: https://registry.npmjs.org/@pnpm/exe.linux-arm64/-/exe.linux-arm64-12.16.1.tgz
-        sha512: 25a45de60371c1d34604192b645b7c6e49eb2b86261d52415b424c8544347c9d1d118a7a0b6193f44c5a0aa38ef04c18132a8cfa3a4a80920afbc585689cb77b
+        url: https://registry.npmjs.org/@pnpm/exe.linux-arm64/-/exe.linux-arm64-12.23.0.tgz
+        sha512: 44b6f2f13d0221601b963adb9a3697e92dcf6213079cb6d4a7e20370e999218d7ffb0cbc849a10a6330f66557854920697c9592945edc4970b2765d9d73d9257
         only-arches: [aarch64]
       - type: archive
         dest: pnpm
-        url: https://registry.npmjs.org/@pnpm/exe.linux-ppc64/-/exe.linux-ppc64-12.16.1.tgz
-        sha512: 167495d09bf8d12d5c32feef14d5b0beed17e7aecb79ce0be0709179a777085703eb340335b1b0f35b3c3796dc28f6a1b4f0fd02956e86c6e6142c78af0e9133
+        url: https://registry.npmjs.org/@pnpm/exe.linux-ppc64/-/exe.linux-ppc64-12.23.0.tgz
+        sha512: d61f7e981a5d9a5140e4b5ba7c07dde549cb8076a436412c4b547aee611763527a58b2e765c58526cec26dd7b4043d37e0245351af7d31a20b02e4acd8445fed
         only-arches: [ppc64le]
       - type: archive
         dest: pnpm
-        url: https://registry.npmjs.org/@pnpm/exe.linux-riscv64/-/exe.linux-riscv64-12.16.1.tgz
-        sha512: 0b54b0c3814de48b6d0f86ad4518402a642d486595a74e1900a3713bca5fbb66e444fc0e5beeeffb60c7d57b355be919618a4ef3a0580ef51c69d79f17e02069
+        url: https://registry.npmjs.org/@pnpm/exe.linux-riscv64/-/exe.linux-riscv64-12.23.0.tgz
+        sha512: 4a53f3d94c54b21231832051293d0f1e7718af6a48a053b17fa591ebc1c29211a60121a58d89586304557de7e0a083cceb4df1e057207bdfc1d59dda22ad5b49
         only-arches: [riscv64]
       - type: archive
         dest: pnpm
-        url: https://registry.npmjs.org/@pnpm/exe.linux-s390x/-/exe.linux-s390x-12.16.1.tgz
-        sha512: 927d9f6aeb6c4dcc4830e0e8a2f415a99c9fa4345d3601a4a1e56a35dacaa9b78106fac497e7d72e49998aae710e1b752ccaf8b1888235cb0c7cd313e893c59a
+        url: https://registry.npmjs.org/@pnpm/exe.linux-s390x/-/exe.linux-s390x-12.23.0.tgz
+        sha512: 1e4f23298d22f6c8f228f245602ef596eeccab96a16f9b164f6cc2a8dc73cc10ab8afbc2aafe4655f66eacb1130b94ec4aeb04f53456169ca72e01be89a5e648
         only-arches: [s390x]
       - type: archive
         dest: pnpm
-        url: https://registry.npmjs.org/@pnpm/exe.linux-x64/-/exe.linux-x64-12.16.1.tgz
-        sha512: 44affff192dc5c65bc03693c6d039764304dd50bbddb33787589c6d5bce3d73a10d5f919ea337367502f5edb1f19599aefde4226dbe8685e5b2d77f897f14853
+        url: https://registry.npmjs.org/@pnpm/exe.linux-x64/-/exe.linux-x64-12.23.0.tgz
+        sha512: beefcdd67509c4b034208ba66f12ffad1ea578603efbe4906345cbfb928f2753b6932bf32682d060bd626cb18eed346ab19f74c1c95ba047612085afaf742c8a
         only-arches: [x86_64]
       - generated-sources.json
       - type: script
